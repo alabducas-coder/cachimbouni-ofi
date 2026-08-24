@@ -1,4 +1,5 @@
 import Icon from "../components/Icon";
+import CepreLogoCard from "../components/CepreLogoCard";
 import ParticleField from "../components/ParticleField";
 import SiteHeader from "../components/SiteHeader";
 import SiteFooter from "../components/SiteFooter";
@@ -276,13 +277,8 @@ export default function HomePage({ navigate, path }: HomePageProps) {
               Entrar a la guía <Icon name="arrow" />
             </button>
           </div>
-          <div className="home-guia-right" aria-hidden="true">
-            <div className="mini-dither-grid">
-              {Array.from({ length: 64 }).map((_, i) => (
-                <span key={i} style={{ opacity: Math.random() * 0.5 + 0.2 }} />
-              ))}
-            </div>
-            <div className="mini-crest">UNI</div>
+          <div className="home-guia-right">
+            <CepreLogoCard />
           </div>
         </div>
       </section>

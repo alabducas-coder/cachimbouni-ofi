@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Inter:wght@400;500;600&family=Oswald:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Inter:wght@400;500;600&family=Montserrat:wght@800&family=Oswald:wght@400;500;600;700&display=swap');
 @import "tailwindcss";
 
 /* ============================================================ BASE / TOKENS */
@@ -1280,15 +1280,61 @@ footer a:hover, footer > div button:hover { color: var(--orange-light); }
 .home-guia-left h2 { margin: 18px 0 18px; }
 .home-guia-left > p { max-width: 520px; color: #8a8f8c; font: 400 15px/1.8 "DM Sans"; margin: 0 0 32px; }
 .home-guia-right {
-  position: relative; aspect-ratio: 1; display: grid; place-items: center;
-  border: 1px solid var(--line); background: radial-gradient(420px 320px at 50% 50%, rgba(216,118,62,.10), transparent 70%);
-  overflow: hidden;
+  position: relative; display: grid; place-items: center; perspective: 1000px; min-height: 340px;
 }
-.mini-dither-grid { position: absolute; inset: 18%; display: grid; grid-template-columns: repeat(8, 1fr); gap: 7px; opacity: .8; }
-.mini-dither-grid span { display: block; aspect-ratio: 1; border-radius: 50%; background: var(--orange-light); }
-.mini-crest { position: relative; font: 700 84px/1 "Oswald"; color: #f3a066; letter-spacing: -.05em; mix-blend-mode: screen; text-shadow: 0 0 24px rgba(243,160,102,.4); }
 
-@media (max-width: 900px) { .home-guia-inner { grid-template-columns: 1fr; } .home-guia-right { display: none; } }
+/* --- Logo CEPRE UNI con efecto (tilt 3D + glare + brillo + flotación) --- */
+.cepre-logo-card {
+  --cepre-rx: 0deg; --cepre-ry: 0deg; --cepre-gx: 50%; --cepre-gy: 50%; --cepre-glare: 0;
+  position: relative;
+  display: flex; align-items: center; gap: clamp(18px, 3vw, 30px);
+  width: min(100%, 470px);
+  padding: clamp(24px, 4vw, 40px) clamp(24px, 4.5vw, 44px);
+  border-radius: 20px;
+  background: linear-gradient(155deg, #f8fbfd 0%, #edf1f6 100%);
+  border: 1px solid rgba(138, 20, 12, .22);
+  box-shadow: 0 30px 70px rgba(0, 0, 0, .5), 0 0 46px rgba(216, 118, 62, .14);
+  transform: rotateX(var(--cepre-rx)) rotateY(var(--cepre-ry));
+  transform-style: preserve-3d;
+  transition: transform .3s ease, box-shadow .35s ease;
+  animation: cepre-float 7s ease-in-out infinite;
+  will-change: transform;
+}
+.cepre-logo-card:hover { box-shadow: 0 36px 84px rgba(0, 0, 0, .55), 0 0 64px rgba(216, 118, 62, .24); }
+.cepre-logo-crest {
+  width: clamp(96px, 42%, 168px); height: auto; display: block;
+  filter: drop-shadow(0 8px 18px rgba(132, 14, 8, .28));
+  transform: translateZ(30px);
+}
+.cepre-logo-divider {
+  align-self: stretch; width: 4px; border-radius: 2px; background: #8a140c;
+  transform: translateZ(20px);
+}
+.cepre-logo-wordmark {
+  display: flex; flex-direction: column;
+  font-family: "Montserrat", "DM Sans", sans-serif;
+  font-weight: 800; font-size: clamp(30px, 4.6vw, 46px); line-height: .98;
+  letter-spacing: -.03em; color: #8a140c;
+  transform: translateZ(26px);
+}
+.cepre-logo-wordmark i, .cepre-logo-wordmark b { font-style: normal; font-weight: 800; }
+.cepre-logo-glare {
+  position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+  background: radial-gradient(460px 320px at var(--cepre-gx) var(--cepre-gy), rgba(255, 255, 255, .9), transparent 62%);
+  opacity: var(--cepre-glare); transition: opacity .35s ease;
+  mix-blend-mode: soft-light;
+}
+.cepre-logo-shine { position: absolute; inset: 0; border-radius: inherit; overflow: hidden; pointer-events: none; }
+.cepre-logo-shine::after {
+  content: ""; position: absolute; top: -20%; bottom: -20%; left: 0; width: 45%;
+  background: linear-gradient(115deg, transparent 0%, rgba(255, 255, 255, .8) 50%, transparent 100%);
+  transform: translateX(-160%) skewX(-12deg);
+  transition: transform .9s ease;
+}
+.cepre-logo-card:hover .cepre-logo-shine::after { transform: translateX(340%) skewX(-12deg); }
+@keyframes cepre-float { 0%, 100% { translate: 0 0; } 50% { translate: 0 -9px; } }
+
+@media (max-width: 900px) { .home-guia-inner { grid-template-columns: 1fr; } .home-guia-right { min-height: 0; margin-top: 12px; } }
 
 /* ============================================================= CONTAINER SCROLL (3D SCROLL ANIMATION) */
 .scroll-container-wrapper {
