@@ -99,15 +99,6 @@ export default function SiteHeader({ navigate, path, variant = "overlay" }: Site
           Tools
         </button>
         <button
-          className={path.startsWith("/ayuda") ? "is-active" : ""}
-          onClick={() => {
-            setMenuOpen(false);
-            navigate("/ayuda");
-          }}
-        >
-          Ayuda
-        </button>
-        <button
           className={path.startsWith("/noticias") ? "is-active" : ""}
           onClick={() => {
             setMenuOpen(false);
@@ -115,6 +106,15 @@ export default function SiteHeader({ navigate, path, variant = "overlay" }: Site
           }}
         >
           Noticias
+        </button>
+        <button
+          className={path.startsWith("/ayuda") ? "is-active" : ""}
+          onClick={() => {
+            setMenuOpen(false);
+            navigate("/ayuda");
+          }}
+        >
+          Ayuda
         </button>
       </nav>
 
